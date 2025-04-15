@@ -200,6 +200,50 @@
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
           </div>
+
+          <div class="grid grid-cols-8 gap-2 mb-1">
+            <div class="col-span-1 text-right pr-2 text-sm text-gray-500">21:00</div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+          </div>
+
+          <div class="grid grid-cols-8 gap-2 mb-1">
+            <div class="col-span-1 text-right pr-2 text-sm text-gray-500">22:00</div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+          </div>
+
+          <div class="grid grid-cols-8 gap-2 mb-1">
+            <div class="col-span-1 text-right pr-2 text-sm text-gray-500">23:00</div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+          </div>
+          
+          <div class="grid grid-cols-8 gap-2 mb-1">
+            <div class="col-span-1 text-right pr-2 text-sm text-gray-500">00:00</div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+          </div>
         </div>
       </div>
 
