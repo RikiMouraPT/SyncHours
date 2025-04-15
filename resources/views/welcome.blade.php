@@ -230,7 +230,7 @@
             </div>
             <div>
               <label for="event-time" class="block text-sm font-medium text-gray-700">Time</label>
-              <select id="event-time" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
+              <select id="event-time" class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-md px-3 py-2 focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
                 <option value="8:00">8:00</option>
                 <option value="9:00">9:00</option>
                 <option value="10:00">10:00</option>
@@ -252,7 +252,7 @@
             </div>
             <div>
               <label for="event-day" class="block text-sm font-medium text-gray-700">Day</label>
-              <select id="event-day" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
+              <select id="event-day" class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-md px-3 py-2 focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
                 <option value="Mon">Monday</option>
                 <option value="Tue">Tuesday</option>
                 <option value="Wed">Wednesday</option>
