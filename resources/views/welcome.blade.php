@@ -72,7 +72,7 @@
           <!-- Time slots - 9:00 -->
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">9:00</div>
-            <div class="col-span-1 h-12 rounded border border-gray-200 bg-rose-100 border-rose-200">
+            <div class="col-span-1 h-12 rounded border bg-rose-100 border-rose-200">
               <div class="text-xs p-1 text-rose-800">Matemática</div>
             </div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
@@ -136,7 +136,7 @@
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">14:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
-            <div class="col-span-1 h-12 rounded border border-gray-200 bg-emerald-100 border-emerald-200">
+            <div class="col-span-1 h-12 rounded border bg-emerald-100 border-emerald-200">
               <div class="text-xs p-1 text-emerald-800">Estudo</div>
             </div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
@@ -163,7 +163,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
-            <div class="col-span-1 h-12 rounded border border-gray-200 bg-amber-100 border-amber-200">
+            <div class="col-span-1 h-12 rounded border bg-amber-100 border-amber-200">
               <div class="text-xs p-1 text-amber-800">Física</div>
             </div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
