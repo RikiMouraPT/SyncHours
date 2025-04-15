@@ -50,6 +50,13 @@
           </div>
 
           <!-- Time slots - 8:00 -->
+          <!-- Time marker - 8:00 (wake up line) -->
+          <div class="grid grid-cols-8 gap-2 mb-1 items-center">
+            <div class="col-span-1"></div>
+            <div class="col-span-7 h-[22px] bg-blue-200 rounded-full text-gray-600 flex justify-center align-middle">Dormir</div>
+          </div>
+
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">8:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
@@ -60,6 +67,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
           </div>
+
 
           <!-- Time slots - 9:00 -->
           <div class="grid grid-cols-8 gap-2 mb-1">
@@ -244,15 +252,9 @@
             <div class="col-span-1 h-12 rounded border border-gray-200"></div>
           </div>
           
-          <div class="grid grid-cols-8 gap-2 mb-1">
-            <div class="col-span-1 text-right pr-2 text-sm text-gray-500">00:00</div>
-            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
-            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
-            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
-            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
-            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
-            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
-            <div class="col-span-1 h-12 rounded border border-gray-200"></div>
+          <div class="grid grid-cols-8 gap-2 mb-1 items-center">
+            <div class="col-span-1"></div>
+            <div class="col-span-7 h-[22px] bg-blue-200 rounded-full text-gray-600 flex justify-center align-middle">Dormir</div>
           </div>
         </div>
       </div>
