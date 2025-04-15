@@ -24,7 +24,7 @@
       <!-- Calendar Section -->
       <div class="lg:flex-1">
         <div class="bg-white rounded-lg shadow-sm p-4" id="calendar">
-          <h2 class="text-lg font-semibold text-gray-800 mb-4">Calendário Semanal</h2>
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">Weakly Calender</h2>
 
           <!-- Days of the week -->
           <div class="grid grid-cols-8 gap-2 mb-2">
@@ -222,14 +222,14 @@
       <!-- Sidebar for events -->
       <div class="lg:w-80 space-y-6">
         <div class="bg-white rounded-lg shadow-sm p-4">
-          <h2 class="text-lg font-semibold text-gray-800 mb-4">Adicionar Evento</h2>
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">Add Test</h2>
           <form id="add-event-form" class="space-y-4">
             <div>
-              <label for="event-title" class="block text-sm font-medium text-gray-700">Título</label>
-              <input type="text" id="event-title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Ex: Aula de Matemática">
+              <label for="event-title" class="block text-sm font-medium text-gray-700">Title</label>
+              <input type="text" id="event-title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Ex: Mathematics">
             </div>
             <div>
-              <label for="event-time" class="block text-sm font-medium text-gray-700">Hora</label>
+              <label for="event-time" class="block text-sm font-medium text-gray-700">Time</label>
               <select id="event-time" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
                 <option value="8:00">8:00</option>
                 <option value="9:00">9:00</option>
@@ -251,23 +251,23 @@
               </select>
             </div>
             <div>
-              <label for="event-day" class="block text-sm font-medium text-gray-700">Dia</label>
+              <label for="event-day" class="block text-sm font-medium text-gray-700">Day</label>
               <select id="event-day" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
-                <option value="Mon">Segunda-feira</option>
-                <option value="Tue">Terça-feira</option>
-                <option value="Wed">Quarta-feira</option>
-                <option value="Thu">Quinta-feira</option>
-                <option value="Fri">Sexta-feira</option>
-                <option value="Sat">Sábado</option>
-                <option value="Sun">Domingo</option>
+                <option value="Mon">Monday</option>
+                <option value="Tue">Tuesday</option>
+                <option value="Wed">Wednesday</option>
+                <option value="Thu">Thursday</option>
+                <option value="Fri">Friday</option>
+                <option value="Sat">Saturday</option>
+                <option value="Sun">Sunday</option>
               </select>
             </div>
-            <button type="submit" class="w-full bg-rose-600 text-white p-2 rounded-md">Adicionar Evento</button>
+            <button type="submit" class="w-full bg-rose-600 text-white p-2 rounded-md">Add Test</button>
           </form>
         </div>
           <!-- Exam Summary Section -->
           <div class="bg-white rounded-lg shadow-sm p-4">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Próximos Exames</h2>
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Next Tests</h2>
             <div class="space-y-3">
               <div class="p-3 bg-rose-50 rounded-md border border-rose-100">
                 <div class="font-medium text-rose-800">Matemática</div>
