@@ -50,7 +50,7 @@
             <div class="col-span-1 text-center font-medium text-gray-600">Sun</div>
           </div>
 
-          <!-- Bar for readability -->
+          <!-- Bar for Sleep Time -->
           <div class="grid grid-cols-8 gap-2 mb-1 items-center">
             <div class="col-span-1"></div>
             <div class="col-span-7 h-[22px] bg-blue-200 rounded-full text-gray-600 flex justify-center align-middle">Dormir</div>
@@ -80,6 +80,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="9:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="9:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">10:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="10:00" data-day="Mon"></div>
@@ -90,6 +91,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="10:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="10:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">11:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="11:00" data-day="Mon"></div>
@@ -100,6 +102,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="11:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="11:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">12:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="12:00" data-day="Mon"></div>
@@ -110,6 +113,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="12:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="12:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">13:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="13:00" data-day="Mon"></div>
@@ -120,6 +124,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="13:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="13:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">14:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="14:00" data-day="Mon"></div>
@@ -130,6 +135,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="14:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="14:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">15:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="15:00" data-day="Mon"></div>
@@ -140,6 +146,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="15:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="15:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">16:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="16:00" data-day="Mon"></div>
@@ -150,6 +157,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="16:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="16:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">17:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="17:00" data-day="Mon"></div>
@@ -160,6 +168,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="17:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="17:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">18:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="18:00" data-day="Mon"></div>
@@ -170,6 +179,7 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="18:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="18:00" data-day="Sun"></div>
           </div>
+
           <div class="grid grid-cols-8 gap-2 mb-1">
             <div class="col-span-1 text-right pr-2 text-sm text-gray-500">19:00</div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="19:00" data-day="Mon"></div>
@@ -224,10 +234,14 @@
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="23:00" data-day="Sat"></div>
             <div class="col-span-1 h-12 rounded border border-gray-200 event-slot" data-time="23:00" data-day="Sun"></div>
           </div>
+
+          <!-- Bar for Sleep time -->
+          
           <div class="grid grid-cols-8 gap-2 mb-1 items-center">
             <div class="col-span-1"></div>
             <div class="col-span-7 h-[22px] bg-blue-200 rounded-full text-gray-600 flex justify-center align-middle">Dormir</div>
           </div>
+
         </div>
       </div>
 
