@@ -9,24 +9,6 @@ use Illuminate\Http\Request;
 
 class UserConfigController extends Controller
 {
-    //Save form to cookie
-    public function save(Request $request)
-    {
-        // Obtemos os dados do formulário
-        $userConfig = $request->except('_token');
-
-        // Convertemos para JSON para guardar no cookie
-        $jsonConfig = json_encode($userConfig);
-
-        // Criamos o cookie (duração: 1 semana = 60*24*7 minutos)
-        $cookie = cookie('userConfigCookie', $jsonConfig, 60 * 24 * 7);
-
-        // Redirecionamos com o cookie anexado
-        return redirect()->route('user.index')
-                        ->with('success', 'Configuração guardada com sucesso!')
-                        ->withCookie($cookie);
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -52,7 +34,7 @@ class UserConfigController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -60,7 +42,19 @@ class UserConfigController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Obtemos os dados do formulário
+        $userConfig = $request->except('_token');
+
+        // Convertemos para JSON para guardar no cookie
+        $jsonConfig = json_encode($userConfig);
+
+        // Criamos o cookie (duração: 1 semana = 60*24*7 minutos)
+        $cookie = cookie('userConfigCookie', $jsonConfig, 60 * 24 * 7);
+
+        // Redirecionamos com o cookie anexado
+        return redirect()->route('user.index')
+                        ->with('success', 'Configuração guardada com sucesso!')
+                        ->withCookie($cookie);
     }
 
     /**
