@@ -44,7 +44,7 @@
                 @endforeach
             </div>
         @else
-            <p class="text-gray-600">You haven't configured any activies</p>
+            <p class="text-gray-600">No schedule available for this user.</p>
         @endif
     </div>
 

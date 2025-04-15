@@ -81,113 +81,113 @@
                 </div>
             @endforeach
 
-            <button type="submit" class="bg-rose-600 text-white px-5 py-2.5 rounded-md hover:bg-rose-700 transition">
-                Save Configuration
-            </button>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button type="submit" class="bg-rose-600 text-white px-6 py-3 rounded-xl shadow-md hover:bg-rose-700 transition duration-200 text-sm font-semibold">
+                    Save Configuration
+                </button>
+            
+                <a href="{{ route('user.index') }}" class="px-6 py-3 rounded-xl border border-rose-600 text-rose-600 hover:bg-rose-50 transition duration-200 shadow-md text-sm font-semibold">
+                    Back
+                </a>
+            </div>
         </form>
-
-        <div class="mt-6 text-center">
-            <a href="{{ route('user.index') }}" class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
-                Back
-            </a>
-        </div>
     </div>
 </main>
 
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-4 mt-8">
+<footer class="bg-white border-t border-gray-200 py-4 mt-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p class="text-center text-sm text-gray-500">&copy; 2024 SyncHours. All rights reserved.</p>
     </div>
-    </footer>
+</footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Change tab
-            document.querySelectorAll('.day-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const day = tab.dataset.day;
-                    document.querySelectorAll('.day-panel').forEach(p => p.classList.add('hidden'));
-                    document.getElementById(`${day}-panel`).classList.remove('hidden');
-        
-                    document.querySelectorAll('.day-tab').forEach(t => {
-                        t.classList.remove('border-rose-500', 'text-rose-600');
-                        t.classList.add('border-transparent', 'text-gray-500');
-                    });
-        
-                    tab.classList.remove('border-transparent', 'text-gray-500');
-                    tab.classList.add('border-rose-500', 'text-rose-600');
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Change tab
+        document.querySelectorAll('.day-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const day = tab.dataset.day;
+                document.querySelectorAll('.day-panel').forEach(p => p.classList.add('hidden'));
+                document.getElementById(`${day}-panel`).classList.remove('hidden');
+    
+                document.querySelectorAll('.day-tab').forEach(t => {
+                    t.classList.remove('border-rose-500', 'text-rose-600');
+                    t.classList.add('border-transparent', 'text-gray-500');
                 });
+    
+                tab.classList.remove('border-transparent', 'text-gray-500');
+                tab.classList.add('border-rose-500', 'text-rose-600');
             });
-        
-            // Add activity
-            document.querySelectorAll('.add-activity-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const day = button.dataset.day;
-                    const container = document.getElementById(`${day}-activities`);
-                    const count = container.querySelectorAll('.activity-item').length;
-        
-                    const item = document.createElement('div');
-                    item.className = 'activity-item bg-white border shadow-md rounded-lg p-5 mb-4';
-                    item.innerHTML = `
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-semibold text-gray-800">Activity ${count + 1}</h3>
-                            <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Activity</label>
-                                <input type="text" name="${day}[${count}][activity]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-inner focus:ring-rose-500 focus:border-rose-500 sm:text-sm px-3 py-2">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Start</label>
-                                <input type="time" name="${day}[${count}][start]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-inner focus:ring-rose-500 focus:border-rose-500 sm:text-sm px-3 py-2">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">End</label>
-                                <input type="time" name="${day}[${count}][end]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-inner focus:ring-rose-500 focus:border-rose-500 sm:text-sm px-3 py-2">
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(item);
-        
-                    const removeBtn = item.querySelector('.remove-activity-btn');
-                    removeBtn.addEventListener('click', () => {
-                        item.remove();
-                        updateActivityNumbers(day);
-                    });
-                });
-            });
-        
-            // Remove activity
-            document.addEventListener('click', (e) => {
-                const btn = e.target.closest('.remove-activity-btn');
-                if (!btn) return;
-        
-                const activityItem = btn.closest('.activity-item');
-                const day = activityItem.closest('.activities-container').id.split('-')[0];
-                activityItem.remove();
-                updateActivityNumbers(day);
-            });
-        
-            function updateActivityNumbers(day) {
-                const container = document.getElementById(`${day}-activities`);
-                container.querySelectorAll('.activity-item').forEach((activity, index) => {
-                    const heading = activity.querySelector('h3');
-                    heading.textContent = `Activity ${index + 1}`;
-        
-                    activity.querySelectorAll('input').forEach(input => {
-                        const nameParts = input.name.split('[');
-                        input.name = `${nameParts[0]}[${index}]${nameParts[2]}`;
-                    });
-                });
-            }
         });
-    </script>
+    
+        // Add activity
+        document.querySelectorAll('.add-activity-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const day = button.dataset.day;
+                const container = document.getElementById(`${day}-activities`);
+                const count = container.querySelectorAll('.activity-item').length;
+    
+                const item = document.createElement('div');
+                item.className = 'activity-item bg-white border shadow-md rounded-lg p-5 mb-4';
+                item.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-semibold text-gray-800">Activity ${count + 1}</h3>
+                        <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Activity</label>
+                            <input type="text" name="${day}[${count}][activity]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-inner focus:ring-rose-500 focus:border-rose-500 sm:text-sm px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Start</label>
+                            <input type="time" name="${day}[${count}][start]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-inner focus:ring-rose-500 focus:border-rose-500 sm:text-sm px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">End</label>
+                            <input type="time" name="${day}[${count}][end]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-inner focus:ring-rose-500 focus:border-rose-500 sm:text-sm px-3 py-2">
+                        </div>
+                    </div>
+                `;
+                container.appendChild(item);
+    
+                const removeBtn = item.querySelector('.remove-activity-btn');
+                removeBtn.addEventListener('click', () => {
+                    item.remove();
+                    updateActivityNumbers(day);
+                });
+            });
+        });
+    
+        // Remove activity
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.remove-activity-btn');
+            if (!btn) return;
+    
+            const activityItem = btn.closest('.activity-item');
+            const day = activityItem.closest('.activities-container').id.split('-')[0];
+            activityItem.remove();
+            updateActivityNumbers(day);
+        });
+    
+        function updateActivityNumbers(day) {
+            const container = document.getElementById(`${day}-activities`);
+            container.querySelectorAll('.activity-item').forEach((activity, index) => {
+                const heading = activity.querySelector('h3');
+                heading.textContent = `Activity ${index + 1}`;
+    
+                activity.querySelectorAll('input').forEach(input => {
+                    const nameParts = input.name.split('[');
+                    input.name = `${nameParts[0]}[${index}]${nameParts[2]}`;
+                });
+            });
+        }
+    });
+</script>
 </body>
 </html>
