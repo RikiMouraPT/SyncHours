@@ -11,47 +11,49 @@ class UserConfigController extends Controller
 {
     public function testShell()
     {
-        //Get userExamCookie
+        // Obter userExams e userConfig dos cookies
         if (request()->hasCookie('userExamsCookie')) {
-            // Obtemos o cookie
             $cookie = request()->cookie('userExamsCookie');
-
-            // Decodificamos o JSON para um array
             $userExams = json_decode($cookie, true);
         }
-        //Get userConfigCookie
-        if (request()->hasCookie('userConfigCookie')) {
-            // Obtemos o cookie
-            $cookie = request()->cookie('userConfigCookie');
 
-            // Decodificamos o JSON para um array
+        if (request()->hasCookie('userConfigCookie')) {
+            $cookie = request()->cookie('userConfigCookie');
             $userConfig = json_decode($cookie, true);
         }
 
+        // Gerar o inputText para passar ao script
         $inputText = json_encode([
             'userExams' => $userExams,
             'userConfig' => $userConfig
         ]);
 
-        $aiOutput = '';
-        // Chama o script Node.js diretamente
-        $command = 'node ' . base_path('path/to/gemini_request.js') . ' ' . escapeshellarg($inputText);
-        
-        // Executa o comando e captura a saída
+
+        // Executar o comando Node.js, passando o inputText gerado
+        $command = 'node ' . base_path('/resources/scripts/gemini.js') . ' ' . escapeshellarg($inputText);
+
+        // Chama o script Node.js e captura a saída
         $aiOutput = shell_exec($command);
-        dd($aiOutput);
+        $aiOutput = json_decode($aiOutput, true);
+
+        //Save em cookie
+        $cookie = cookie('aiOutputCookie', json_encode($aiOutput), 60 * 24 * 7);
+
         // Verifica se a resposta foi recebida corretamente
         if ($aiOutput) {
-            // Aqui podemos processar e enviar a resposta para o frontend
+            // Processar e enviar a resposta para o frontend
             return redirect()->route('welcome')
-                            ->with('success', 'Plano de estudo gerado!')
-                            ->with('aiOutput', $aiOutput);  // Envia a resposta gerada
+                ->with('success', 'Plano de estudo gerado!')
+                ->with('aiOutput', $aiOutput)
+                ->with('userExams', $userExams)
+                ->with('userConfig', $userConfig)
+                ->withCookie($cookie);
         } else {
             return redirect()->route('welcome')
-                            ->with('error', 'Erro ao gerar o plano de estudo');
+                ->with('error', 'Erro ao gerar o plano de estudo');
         }
-
     }
+
 
     /**
      * Display a listing of the resource.
@@ -147,25 +149,23 @@ class UserConfigController extends Controller
     {
         $userConfig = [];
         $userExams = [];
+        $aiOutput = session('aiOutput') ?? [];
 
-        // Verificamos se o cookie 'userConfigCookie' existe
         if (request()->hasCookie('userConfigCookie')) {
-            // Obtemos o cookie 'userConfigCookie'
             $cookieConfig = request()->cookie('userConfigCookie');
-            // Decodificamos o JSON para um array
             $userConfig = json_decode($cookieConfig, true);
         }
 
-        // Verificamos se o cookie 'userExamsCookie' existe
         if (request()->hasCookie('userExamsCookie')) {
-            // Obtemos o cookie 'userExamsCookie'
             $cookieExams = request()->cookie('userExamsCookie');
-            // Decodificamos o JSON para um array
             $userExams = json_decode($cookieExams, true);
         }
 
-        // Passamos os dados para a view
-        return view('welcome', compact('userConfig', 'userExams'));
+        if (request()->hasCookie('aiOutputCookie')) {
+            $cookieAiOutput = request()->cookie('aiOutputCookie');
+            $aiOutput = json_decode($cookieAiOutput, true);
+        }
+        return view('welcome', compact('userConfig', 'userExams', 'aiOutput'));
     }
 
     /**

@@ -36,16 +36,15 @@
       <!-- Calendar Section -->
       <div class="lg:flex-1">
         <div class="bg-white rounded-lg shadow-sm p-4" id="calendar">
-          <h2 class="text-lg font-semibold text-gray-800 mb-4">Weakly Calender</h2>
-
-          <form action="{{ route('test.shell') }}" method="get">
-            @csrf
-            <div class="flex justify-end mb-4">
-              <button type="submit" class="bg-rose-600 text-white px-4 py-2 rounded hover:bg-rose-700">
-                Test Shell
-              </button>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-gray-800">Weekly Calendar</h2>
+                <form action="{{ route('test.shell') }}" method="get">
+                  @csrf
+                  <button type="submit" class="bg-rose-600 text-white px-2 py-1 rounded hover:bg-rose-700">
+                    Call Gemini
+                  </button>
+                </form>
             </div>
-          </form>
 
           <!-- Days of the week -->
           <div class="grid grid-cols-8 gap-2 mb-2">
@@ -62,7 +61,7 @@
           <!-- Bar for Sleep Time -->
           <div class="grid grid-cols-8 gap-2 mb-1 items-center">
             <div class="col-span-1"></div>
-            <div class="col-span-7 h-[22px] bg-blue-200 rounded-full text-gray-600 flex justify-center align-middle">Dormir</div>
+            <div class="col-span-7 h-[22px] bg-blue-200 rounded-full text-gray-600 text-xs flex justify-center items-center align-middle">Sleep</div>
           </div>
 
           <!-- Time slots - Sample for 8:00 -->
@@ -248,7 +247,7 @@
           
           <div class="grid grid-cols-8 gap-2 mb-1 items-center">
             <div class="col-span-1"></div>
-            <div class="col-span-7 h-[22px] bg-blue-200 rounded-full text-gray-600 flex justify-center align-middle">Dormir</div>
+            <div class="col-span-7 h-[22px] bg-blue-200 rounded-full text-gray-600 text-xs flex justify-center items-center text-center">Sleep</div>
           </div>
 
         </div>
@@ -297,48 +296,46 @@
                     <option value="Sun">Sunday</option>
                 </select>
             </div>
-            <button type="submit" class="w-full bg-rose-600 text-white p-2 rounded-md">Add Test</button>
+            <button type="submit" class="w-full bg-rose-600 text-white p-2 rounded-md">Add Exam</button>
         </form>
         
         </div>
           <!-- Exam Summary Section -->
-          <div class="bg-white rounded-lg shadow-sm p-4">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Next Tests</h2>
-            <div class="space-y-3">
-              <div class="p-3 bg-rose-50 rounded-md border border-rose-100">
-                <div class="font-medium text-rose-800">Matemática</div>
-                <div class="text-sm text-rose-600">15 de Maio, 2024</div>
-                <div class="mt-1 flex items-center text-xs text-rose-700">
-                  <span>Tempo de estudo: 12h / 20h</span>
-                  <div class="ml-auto w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div class="bg-rose-500 h-full" style="width: 60%"></div>
-                  </div>
+            <div class="bg-white rounded-lg shadow-sm p-4">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Next Exams</h2>
+                <div class="space-y-3">
+                @forelse ($userExams as $exam)
+                    @php
+                    // Define uma cor base só para estilo
+                    $color = 'red';
+                    $diasSemana = [
+                        'Mon' => 'Segunda-feira',
+                        'Tue' => 'Terça-feira',
+                        'Wed' => 'Quarta-feira',
+                        'Thu' => 'Quinta-feira',
+                        'Fri' => 'Sexta-feira',
+                        'Sat' => 'Sábado',
+                        'Sun' => 'Domingo',
+                    ];
+                    @endphp
+            
+                    <div class="p-3 bg-{{ $color }}-50 rounded-md border border-{{ $color }}-100">
+                    <div class="font-medium text-{{ $color }}-800">{{ $exam['title'] }}</div>
+                    <div class="text-sm text-{{ $color }}-600">
+                        {{ $diasSemana[$exam['day']] ?? $exam['day'] }}, às {{ $exam['time'] }}
+                    </div>
+                    <div class="mt-1 flex items-center text-xs text-{{ $color }}-700">
+                        <span>Sem progresso registado</span>
+                        <div class="ml-auto w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="bg-{{ $color }}-500 h-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    </div>
+                @empty
+                    <div class="text-gray-500 text-sm">Sem exames adicionados.</div>
+                @endforelse
                 </div>
-              </div>
-  
-              <div class="p-3 bg-emerald-50 rounded-md border border-emerald-100">
-                <div class="font-medium text-emerald-800">Física</div>
-                <div class="text-sm text-emerald-600">22 de Maio, 2024</div>
-                <div class="mt-1 flex items-center text-xs text-emerald-700">
-                  <span>Tempo de estudo: 8h / 15h</span>
-                  <div class="ml-auto w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div class="bg-emerald-500 h-full" style="width: 53%"></div>
-                  </div>
-                </div>
-              </div>
-  
-              <div class="p-3 bg-amber-50 rounded-md border border-amber-100">
-                <div class="font-medium text-amber-800">Química</div>
-                <div class="text-sm text-amber-600">29 de Maio, 2024</div>
-                <div class="mt-1 flex items-center text-xs text-amber-700">
-                  <span>Tempo de estudo: 5h / 18h</span>
-                  <div class="ml-auto w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div class="bg-amber-500 h-full" style="width: 28%"></div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -347,9 +344,12 @@
   <script>
     $(document).ready(function() {
       // Parse PHP data passed to view
-      const userExams = @json($userExams);
-      const userConfig = @json($userConfig);
-  
+      const userExams = @json($userExams ?? []);
+      const userConfig = @json($userConfig ?? []);
+      const aiOutput = @json($aiOutput ?? []);
+      
+      console.log("Plano de estudo gerado pela IA:", aiOutput);
+    
       const activityColors = {
         'Aulas': 'bg-indigo-200',
         'Sesta': 'bg-orange-200',
@@ -357,69 +357,146 @@
         'Estudo': 'bg-green-200',
         'default': 'bg-purple-200'
       };
-  
-      // DISPLAY EXAMS
-      if (userExams && userExams.length > 0) {
-        userExams.forEach(exam => {
-          const slot = $(`.event-slot[data-time="${exam.time}"][data-day="${exam.day}"]`);
-          if (slot.html().trim() && slot.hasClass('has-event')) {
-            slot.append(`<div class="mt-1 text-xs text-rose-700">${exam.title}</div>`);
-          } else {
-            slot.html(`
-              <div class="h-full bg-rose-100 rounded p-1 text-xs overflow-hidden">
-                <div class="font-medium text-rose-800">${exam.title}</div>
-              </div>
-            `);
-            slot.addClass('has-event');
+    
+      // Limpar todos os slots primeiro
+      $('.event-slot').removeClass('has-event').empty();
+    
+      // Função para converter tempo em horas (8:30 → 8.5)
+      function timeToHours(time) {
+        const [hours, minutes] = time.split(':').map(Number);
+        return hours + (minutes / 60);
+      }
+    
+      // Mapeamento de dias inglês → português
+      const dayMapping = {
+        'monday': 'Mon',
+        'tuesday': 'Tue',
+        'wednesday': 'Wed',
+        'thursday': 'Thu',
+        'friday': 'Fri',
+        'saturday': 'Sat',
+        'sunday': 'Sun'
+      };
+    
+      // 1. Primeiro processar os exames do usuário (userExams)
+      userExams.forEach(exam => {
+        const slot = $(`.event-slot[data-time="${exam.time}"][data-day="${exam.day}"]`);
+        if (slot.length) {
+          slot.html(`
+            <div class="h-full bg-rose-100 rounded p-1 text-xs overflow-hidden">
+              <div class="font-medium text-rose-800">${exam.title}</div>
+            </div>
+          `);
+          slot.addClass('has-event');
+        }
+      });
+    
+      // 2. Processar as configurações do usuário (userConfig)
+      Object.entries(userConfig).forEach(([day, activities]) => {
+        const dayCode = dayMapping[day];
+        if (!dayCode || !Array.isArray(activities)) return;
+    
+        activities.forEach(activity => {
+          if (!activity.activity || !activity.start || !activity.end) return;
+          
+          const startHour = timeToHours(activity.start);
+          const endHour = timeToHours(activity.end);
+          const colorClass = activityColors[activity.activity] || activityColors['default'];
+    
+          for (let h = Math.floor(startHour); h < Math.ceil(endHour); h++) {
+            if (h < 8 || h > 23) continue;
+            const timeStr = `${h}:00`;
+            const slot = $(`.event-slot[data-time="${timeStr}"][data-day="${dayCode}"]`);
+            
+            if (slot.length && !slot.hasClass('has-event')) {
+              slot.html(`
+                <div class="h-full ${colorClass} rounded p-1 text-xs overflow-hidden">
+                  <div class="font-medium text-gray-800">${activity.activity}</div>
+                </div>
+              `);
+              slot.addClass('has-event');
+            }
           }
         });
-      }
-  
-      // DISPLAY ACTIVITIES FROM USER CONFIG
-      if (userConfig) {
-        const dayMapping = {
-          'monday': 'Mon', 'tuesday': 'Tue', 'wednesday': 'Wed',
-          'thursday': 'Thu', 'friday': 'Fri', 'saturday': 'Sat', 'sunday': 'Sun'
-        };
-  
-        function timeToHours(time) {
-          const [hours, minutes] = time.split(':').map(Number);
-          return hours + (minutes / 60);
-        }
-  
-        Object.keys(userConfig).forEach(day => {
-          const dayCode = dayMapping[day];
-          if (!dayCode || !Array.isArray(userConfig[day])) return;
-  
-          userConfig[day].forEach(activity => {
-            if (!activity.activity || !activity.start || !activity.end) return;
-            const startHour = timeToHours(activity.start);
-            const endHour = timeToHours(activity.end);
-            const colorClass = activityColors[activity.activity] || activityColors.default;
-  
-            for (let h = Math.floor(startHour); h < Math.ceil(endHour); h++) {
-              if (h < 8 || h > 23) continue;
-              const timeStr = `${h}:00`;
-              const slot = $(`.event-slot[data-time="${timeStr}"][data-day="${dayCode}"]`);
-              if (slot.length && !slot.hasClass('has-event')) {
+      });
+    
+      // 3. Processar o plano de estudos da IA (aiOutput)
+      Object.entries(aiOutput).forEach(([day, sessions]) => {
+        const dayCode = dayMapping[day];
+        if (!dayCode || !Array.isArray(sessions)) return;
+    
+        sessions.forEach(session => {
+          // Extrair informações da sessão
+          const examName = session.exam || 'Estudo';
+          const startTime = session.start;
+          const endTime = session.end;
+          
+          if (!startTime || !endTime) return;
+          
+          const startHour = timeToHours(startTime);
+          const endHour = timeToHours(endTime);
+    
+          console.log(`Adicionando sessão para ${examName} em ${dayCode} das ${startTime} às ${endTime}`);
+    
+          // Para cada hora dentro do intervalo
+          for (let h = Math.floor(startHour); h < Math.ceil(endHour); h++) {
+            if (h < 8 || h > 23) continue;
+            
+            const timeStr = `${h}:00`;
+            const slot = $(`.event-slot[data-time="${timeStr}"][data-day="${dayCode}"]`);
+            
+            if (slot.length) {
+              // Se já tem um evento, adiciona em uma nova linha
+              if (slot.hasClass('has-event')) {
+                const existingContent = slot.html();
+                slot.html(`${existingContent}<div class="mt-1 text-xs text-green-700">${examName}</div>`);
+              } 
+              // Se não tem evento, cria um novo
+              else {
                 slot.html(`
-                  <div class="h-full ${colorClass} rounded p-1 text-xs overflow-hidden">
-                    <div class="font-medium text-gray-800">${activity.activity}</div>
+                  <div class="h-full bg-green-200 rounded p-1 text-xs overflow-hidden">
+                    <div class="font-medium text-gray-800">${examName}</div>
                   </div>
                 `);
+                slot.addClass('has-event');
               }
             }
-          });
+          }
         });
+      });
+    
+      // Opcional: Exibir o plano de estudos formatado em algum elemento
+      const studyPlanContainer = document.getElementById("studyPlanContainer");
+      if (studyPlanContainer) {
+        let html = '<h3 class="text-lg font-semibold mb-2">Plano de Estudos</h3>';
+        
+        Object.entries(aiOutput).forEach(([day, sessions]) => {
+          if (sessions && sessions.length > 0) {
+            const dayName = {
+              'monday': 'Segunda-feira',
+              'tuesday': 'Terça-feira',
+              'wednesday': 'Quarta-feira',
+              'thursday': 'Quinta-feira',
+              'friday': 'Sexta-feira',
+              'saturday': 'Sábado',
+              'sunday': 'Domingo'
+            }[day] || day;
+            
+            html += `<div class="mb-3"><strong>${dayName}</strong></div>`;
+            
+            sessions.forEach(session => {
+              html += `
+                <div class="ml-4 mb-2 text-sm">
+                  ${session.start} - ${session.end}: ${session.exam}
+                </div>
+              `;
+            });
+          }
+        });
+        
+        studyPlanContainer.innerHTML = html;
       }
-  
-      // Exibe a resposta no console
-    console.log("Plano de estudo gerado pela IA:", aiOutput);
-
-    // Processar o aiOutput conforme necessário
-    document.getElementById("studyPlanContainer").innerHTML = aiOutput;
-        });
-  </script>
-  
+    });
+    </script>
 </body>
 </html>
