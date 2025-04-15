@@ -38,6 +38,15 @@
         <div class="bg-white rounded-lg shadow-sm p-4" id="calendar">
           <h2 class="text-lg font-semibold text-gray-800 mb-4">Weakly Calender</h2>
 
+          <form action="{{ route('test.shell') }}" method="get">
+            @csrf
+            <div class="flex justify-end mb-4">
+              <button type="submit" class="bg-rose-600 text-white px-4 py-2 rounded hover:bg-rose-700">
+                Test Shell
+              </button>
+            </div>
+          </form>
+
           <!-- Days of the week -->
           <div class="grid grid-cols-8 gap-2 mb-2">
             <div class="col-span-1"></div>
@@ -334,5 +343,83 @@
       </div>
     </div>
   </main>
+
+  <script>
+    $(document).ready(function() {
+      // Parse PHP data passed to view
+      const userExams = @json($userExams);
+      const userConfig = @json($userConfig);
+  
+      const activityColors = {
+        'Aulas': 'bg-indigo-200',
+        'Sesta': 'bg-orange-200',
+        'Dormir': 'bg-blue-200',
+        'Estudo': 'bg-green-200',
+        'default': 'bg-purple-200'
+      };
+  
+      // DISPLAY EXAMS
+      if (userExams && userExams.length > 0) {
+        userExams.forEach(exam => {
+          const slot = $(`.event-slot[data-time="${exam.time}"][data-day="${exam.day}"]`);
+          if (slot.html().trim() && slot.hasClass('has-event')) {
+            slot.append(`<div class="mt-1 text-xs text-rose-700">${exam.title}</div>`);
+          } else {
+            slot.html(`
+              <div class="h-full bg-rose-100 rounded p-1 text-xs overflow-hidden">
+                <div class="font-medium text-rose-800">${exam.title}</div>
+              </div>
+            `);
+            slot.addClass('has-event');
+          }
+        });
+      }
+  
+      // DISPLAY ACTIVITIES FROM USER CONFIG
+      if (userConfig) {
+        const dayMapping = {
+          'monday': 'Mon', 'tuesday': 'Tue', 'wednesday': 'Wed',
+          'thursday': 'Thu', 'friday': 'Fri', 'saturday': 'Sat', 'sunday': 'Sun'
+        };
+  
+        function timeToHours(time) {
+          const [hours, minutes] = time.split(':').map(Number);
+          return hours + (minutes / 60);
+        }
+  
+        Object.keys(userConfig).forEach(day => {
+          const dayCode = dayMapping[day];
+          if (!dayCode || !Array.isArray(userConfig[day])) return;
+  
+          userConfig[day].forEach(activity => {
+            if (!activity.activity || !activity.start || !activity.end) return;
+            const startHour = timeToHours(activity.start);
+            const endHour = timeToHours(activity.end);
+            const colorClass = activityColors[activity.activity] || activityColors.default;
+  
+            for (let h = Math.floor(startHour); h < Math.ceil(endHour); h++) {
+              if (h < 8 || h > 23) continue;
+              const timeStr = `${h}:00`;
+              const slot = $(`.event-slot[data-time="${timeStr}"][data-day="${dayCode}"]`);
+              if (slot.length && !slot.hasClass('has-event')) {
+                slot.html(`
+                  <div class="h-full ${colorClass} rounded p-1 text-xs overflow-hidden">
+                    <div class="font-medium text-gray-800">${activity.activity}</div>
+                  </div>
+                `);
+              }
+            }
+          });
+        });
+      }
+  
+      // Exibe a resposta no console
+    console.log("Plano de estudo gerado pela IA:", aiOutput);
+
+    // Processar o aiOutput conforme necessário
+    document.getElementById("studyPlanContainer").innerHTML = aiOutput;
+        });
+  </script>
+  
 </body>
 </html>

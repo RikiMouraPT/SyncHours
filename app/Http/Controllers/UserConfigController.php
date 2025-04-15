@@ -11,46 +11,66 @@ class UserConfigController extends Controller
 {
     public function testShell()
     {
-        $inputText = 'Gera um horário de estudo semanal para informática com foco em matemática, redes e programação.';
-    
-        putenv('GEMINI_API_KEY=' . env('GEMINI_API_KEY'));
+        //Get userExamCookie
+        if (request()->hasCookie('userExamsCookie')) {
+            // Obtemos o cookie
+            $cookie = request()->cookie('userExamsCookie');
 
-        $bashPath = '"C:/Program Files/Git/bin/bash.exe"';
-        $scriptPath = str_replace('\\', '/', base_path('resources/scripts/gemini_request.sh'));
-        $escapedInput = escapeshellarg($inputText);
+            // Decodificamos o JSON para um array
+            $userExams = json_decode($cookie, true);
+        }
+        //Get userConfigCookie
+        if (request()->hasCookie('userConfigCookie')) {
+            // Obtemos o cookie
+            $cookie = request()->cookie('userConfigCookie');
 
-        $cmd = "$bashPath $scriptPath $escapedInput 2>&1";
+            // Decodificamos o JSON para um array
+            $userConfig = json_decode($cookie, true);
+        }
 
-        $output = shell_exec($cmd);
+        $inputText = json_encode([
+            'userExams' => $userExams,
+            'userConfig' => $userConfig
+        ]);
 
-        dd($output);
+        $aiOutput = '';
+        // Chama o script Node.js diretamente
+        $command = 'node ' . base_path('path/to/gemini_request.js') . ' ' . escapeshellarg($inputText);
+        
+        // Executa o comando e captura a saída
+        $aiOutput = shell_exec($command);
+        dd($aiOutput);
+        // Verifica se a resposta foi recebida corretamente
+        if ($aiOutput) {
+            // Aqui podemos processar e enviar a resposta para o frontend
+            return redirect()->route('welcome')
+                            ->with('success', 'Plano de estudo gerado!')
+                            ->with('aiOutput', $aiOutput);  // Envia a resposta gerada
+        } else {
+            return redirect()->route('welcome')
+                            ->with('error', 'Erro ao gerar o plano de estudo');
+        }
+
     }
 
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    // Verificamos se o cookie 'userConfigCookie' existe
-    if (request()->hasCookie('userConfigCookie')) {
-        // Obtemos o cookie 'userConfigCookie'
-        $cookieConfig = request()->cookie('userConfigCookie');
-        // Decodificamos o JSON para um array
-        $userConfig = json_decode($cookieConfig, true);
-    }
+    {
+        $userConfig = [];
 
-    // Verificamos se o cookie 'userExamsCookie' existe
-    if (request()->hasCookie('userExamsCookie')) {
-        // Obtemos o cookie 'userExamsCookie'
-        $cookieExams = request()->cookie('userExamsCookie');
-        // Decodificamos o JSON para um array
-        $userExams = json_decode($cookieExams, true);
-        dd($userExams);
-    }
+        // Verificamos se o cookie 'userConfigCookie' existe
+        if (request()->hasCookie('userConfigCookie')) {
+            // Obtemos o cookie 'userConfigCookie'
+            $cookieConfig = request()->cookie('userConfigCookie');
+            // Decodificamos o JSON para um array
+            $userConfig = json_decode($cookieConfig, true);
+        }
 
-    // Passamos os dados para a view
-    return view('user.index', compact('userConfig', 'userExams'));
-}
+        // Passamos os dados para a view
+        return view('user.index', compact('userConfig'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -95,38 +115,59 @@ class UserConfigController extends Controller
 
     public function saveExam(Request $request)
     {
-        dd($request->all());
         // Obtemos os dados do formulário
-        $userExams = $request->except('_token');
+        $userExam = $request->except('_token');
 
-        // Convertemos para JSON para guardar no cookie
-        $jsonConfig = json_encode($userExams);
+        // Verificamos se já existe o cookie com os exames
+        $existingExams = [];
+        if (request()->hasCookie('userExamsCookie')) {
+            // Obtemos o cookie
+            $cookieExams = request()->cookie('userExamsCookie');
+            // Decodificamos o JSON para um array
+            $existingExams = json_decode($cookieExams, true);
+        }
+
+        // Adicionamos os novos dados ao array existente
+        // Caso o cookie já tenha dados, adicionar ao array
+        $existingExams[] = $userExam;
+
+        // Convertemos o array atualizado para JSON
+        $jsonExams = json_encode($existingExams);
 
         // Criamos o cookie (duração: 1 semana = 60*24*7 minutos)
-        $cookie = cookie('userExamsCookie', $jsonConfig, 60 * 24 * 7);
-        dd($cookie);
-        // Redirecionamos com o cookie anexado
-        return redirect()->route('user.index')
+        $cookie = cookie('userExamsCookie', $jsonExams, 60 * 24 * 7);
+
+        // Redirecionamos com o cookie atualizado
+        return redirect()->route('welcome')
                         ->with('success', 'Exams guardados com sucesso!')
                         ->withCookie($cookie);
     }
 
-    public function getExams(Request $request)
+    public function welcomeIndex()
     {
-        // Verificamos se o cookie existe
-        if (request()->hasCookie('userExamsCookie')) {
-            // Obtemos o cookie
-            $cookie = request()->cookie('userExamsCookie');
+        $userConfig = [];
+        $userExams = [];
 
+        // Verificamos se o cookie 'userConfigCookie' existe
+        if (request()->hasCookie('userConfigCookie')) {
+            // Obtemos o cookie 'userConfigCookie'
+            $cookieConfig = request()->cookie('userConfigCookie');
             // Decodificamos o JSON para um array
-            $userExams = json_decode($cookie, true);
-            dd($userExams);
-            // Passamos os dados para a view
-            return view('user.index', compact('userExams'));
+            $userConfig = json_decode($cookieConfig, true);
         }
 
-        return view('user.index');
+        // Verificamos se o cookie 'userExamsCookie' existe
+        if (request()->hasCookie('userExamsCookie')) {
+            // Obtemos o cookie 'userExamsCookie'
+            $cookieExams = request()->cookie('userExamsCookie');
+            // Decodificamos o JSON para um array
+            $userExams = json_decode($cookieExams, true);
+        }
+
+        // Passamos os dados para a view
+        return view('welcome', compact('userConfig', 'userExams'));
     }
+
     /**
      * Display the specified resource.
      */
