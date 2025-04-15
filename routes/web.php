@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
 
 Route::get('/user', [UserConfigController::class, 'index'])->name('user.index');
-Route::post('/user/save', [UserConfigController::class, 'save'])->name('user.save');
+Route::get('/user/create', [UserConfigController::class, 'create'])->name('user.create');
+Route::post('/user/store', [UserConfigController::class, 'store'])->name('user.store');
