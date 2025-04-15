@@ -34,6 +34,17 @@ class UserConfigController extends Controller
      */
     public function create()
     {
+        //Take data from cookie and pass to view
+        if (request()->hasCookie('userConfigCookie')) {
+            // Obtemos o cookie
+            $cookie = request()->cookie('userConfigCookie');
+
+            // Decodificamos o JSON para um array
+            $userConfig = json_decode($cookie, true);
+
+            // Passamos os dados para a view
+            return view('user.create', compact('userConfig'));
+        }
         return view('user.create');
     }
 

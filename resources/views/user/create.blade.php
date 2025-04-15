@@ -21,429 +21,67 @@
   <!-- Main Content -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
     <div class="bg-white rounded-lg shadow-sm p-6">
-      <h1 class="text-2xl font-bold text-gray-800 mb-6">Configuração de Horário Semanal</h1>
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Configuração de Horário Semanal</h1>
 
-      <!-- Tabs for days of the week -->
-      <div class="mb-6">
-        <div class="border-b border-gray-200">
-          <nav class="-mb-px flex space-x-2 overflow-x-auto" aria-label="Tabs">
-            <button type="button" class="day-tab border-rose-500 text-rose-600 whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm" data-day="monday">Segunda</button>
-            <button type="button" class="day-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm" data-day="tuesday">Terça</button>
-            <button type="button" class="day-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm" data-day="wednesday">Quarta</button>
-            <button type="button" class="day-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm" data-day="thursday">Quinta</button>
-            <button type="button" class="day-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm" data-day="friday">Sexta</button>
-            <button type="button" class="day-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm" data-day="saturday">Sábado</button>
-            <button type="button" class="day-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm" data-day="sunday">Domingo</button>
-          </nav>
+
+        @php
+            $weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        @endphp
+
+    <form id="config-form" action="{{ route('user.store') }}" method="POST">
+    @csrf
+    <!-- Day panels -->
+    @foreach($weekDays as $day)
+        <div class="day-panel" id="{{ $day }}-panel">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-gray-800">{{ ucfirst($day) }}</h2>
+                <button type="button" class="add-activity-btn px-3 py-1 bg-rose-100 text-rose-700 rounded-md text-sm hover:bg-rose-200 transition-colors" data-day="{{ $day }}">
+                    + Adicionar Atividade
+                </button>
+            </div>
+            
+            <div class="activities-container" id="{{ $day }}-activities">
+                @php
+                    // Verifica se existem atividades já definidas para o dia
+                    $activities = $userConfig[$day] ?? [];
+                @endphp
+                
+                @foreach($activities as $index => $activity)
+                    <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-medium text-gray-700">Atividade {{ $index + 1 }}</h3>
+                            <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Atividade</label>
+                                <input type="text" name="{{ $day }}[{{ $index }}][activity]" value="{{ $activity['activity'] }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Início</label>
+                                <input type="time" name="{{ $day }}[{{ $index }}][start]" value="{{ $activity['start'] }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Fim</label>
+                                <input type="time" name="{{ $day }}[{{ $index }}][end]" value="{{ $activity['end'] }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
-      </div>
+    @endforeach
 
-      <form id="config-form" action="{{ route('user.store') }}" method="POST">
-        @csrf
-        <!-- Day panels -->
-        <div class="day-panels">
-          <!-- Monday Panel -->
-          <div class="day-panel" id="monday-panel">
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-lg font-semibold text-gray-800">Segunda-feira</h2>
-              <button type="button" class="add-activity-btn px-3 py-1 bg-rose-100 text-rose-700 rounded-md text-sm hover:bg-rose-200 transition-colors" data-day="monday">
-                + Adicionar Atividade
-              </button>
-            </div>
-            
-            <div class="activities-container" id="monday-activities">
-              <!-- Default activities for Monday -->
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 1</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="monday[0][activity]" value="Aulas" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="monday[0][start]" value="19:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="monday[0][end]" value="23:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-              
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 2</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="monday[1][activity]" value="Dormir" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="monday[1][start]" value="00:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="monday[1][end]" value="08:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <button type="submit" class="bg-rose-600 text-white px-4 py-2 rounded hover:bg-rose-700">
+        Guardar Configuração
+    </button>
+</form>
 
-          <!-- Tuesday Panel (Hidden by default) -->
-          <div class="day-panel hidden" id="tuesday-panel">
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-lg font-semibold text-gray-800">Terça-feira</h2>
-              <button type="button" class="add-activity-btn px-3 py-1 bg-rose-100 text-rose-700 rounded-md text-sm hover:bg-rose-200 transition-colors" data-day="tuesday">
-                + Adicionar Atividade
-              </button>
-            </div>
-            
-            <div class="activities-container" id="tuesday-activities">
-              <!-- Default activities for Tuesday -->
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 1</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="tuesday[0][activity]" value="Aulas" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="tuesday[0][start]" value="19:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="tuesday[0][end]" value="23:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-              
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 2</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="tuesday[1][activity]" value="Dormir" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="tuesday[1][start]" value="00:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="tuesday[1][end]" value="08:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Wednesday Panel (Hidden by default) -->
-          <div class="day-panel hidden" id="wednesday-panel">
-            <!-- Similar structure as Monday and Tuesday -->
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-lg font-semibold text-gray-800">Quarta-feira</h2>
-              <button type="button" class="add-activity-btn px-3 py-1 bg-rose-100 text-rose-700 rounded-md text-sm hover:bg-rose-200 transition-colors" data-day="wednesday">
-                + Adicionar Atividade
-              </button>
-            </div>
-            
-            <div class="activities-container" id="wednesday-activities">
-              <!-- Default activities for Wednesday -->
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 1</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="wednesday[0][activity]" value="Aulas" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="wednesday[0][start]" value="19:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="wednesday[0][end]" value="23:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-              
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 2</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="wednesday[1][activity]" value="Dormir" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="wednesday[1][start]" value="00:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="wednesday[1][end]" value="08:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Thursday Panel (Hidden by default) -->
-          <div class="day-panel hidden" id="thursday-panel">
-            <!-- Similar structure as other days -->
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-lg font-semibold text-gray-800">Quinta-feira</h2>
-              <button type="button" class="add-activity-btn px-3 py-1 bg-rose-100 text-rose-700 rounded-md text-sm hover:bg-rose-200 transition-colors" data-day="thursday">
-                + Adicionar Atividade
-              </button>
-            </div>
-            
-            <div class="activities-container" id="thursday-activities">
-              <!-- Default activities for Thursday -->
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 1</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="thursday[0][activity]" value="Aulas" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="thursday[0][start]" value="19:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="thursday[0][end]" value="23:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-              
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 2</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="thursday[1][activity]" value="Dormir" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="thursday[1][start]" value="00:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="thursday[1][end]" value="08:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Friday Panel (Hidden by default) -->
-          <div class="day-panel hidden" id="friday-panel">
-            <!-- Similar structure as other days -->
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-lg font-semibold text-gray-800">Sexta-feira</h2>
-              <button type="button" class="add-activity-btn px-3 py-1 bg-rose-100 text-rose-700 rounded-md text-sm hover:bg-rose-200 transition-colors" data-day="friday">
-                + Adicionar Atividade
-              </button>
-            </div>
-            
-            <div class="activities-container" id="friday-activities">
-              <!-- Default activities for Friday -->
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 1</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="friday[0][activity]" value="Aulas" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="friday[0][start]" value="19:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="friday[0][end]" value="23:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-              
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 2</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="friday[1][activity]" value="Dormir" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="friday[1][start]" value="00:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="friday[1][end]" value="08:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Saturday Panel (Hidden by default) -->
-          <div class="day-panel hidden" id="saturday-panel">
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-lg font-semibold text-gray-800">Sábado</h2>
-              <button type="button" class="add-activity-btn px-3 py-1 bg-rose-100 text-rose-700 rounded-md text-sm hover:bg-rose-200 transition-colors" data-day="saturday">
-                + Adicionar Atividade
-              </button>
-            </div>
-            
-            <div class="activities-container" id="saturday-activities">
-              <!-- Default activities for Saturday -->
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 1</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="saturday[0][activity]" value="Dormir" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="saturday[0][start]" value="00:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="saturday[0][end]" value="08:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sunday Panel (Hidden by default) -->
-          <div class="day-panel hidden" id="sunday-panel">
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-lg font-semibold text-gray-800">Domingo</h2>
-              <button type="button" class="add-activity-btn px-3 py-1 bg-rose-100 text-rose-700 rounded-md text-sm hover:bg-rose-200 transition-colors" data-day="sunday">
-                + Adicionar Atividade
-              </button>
-            </div>
-            
-            <div class="activities-container" id="sunday-activities">
-              <!-- Default activities for Sunday -->
-              <div class="activity-item bg-gray-50 p-4 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-medium text-gray-700">Atividade 1</h3>
-                  <button type="button" class="remove-activity-btn text-gray-400 hover:text-rose-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Atividade</label>
-                    <input type="text" name="sunday[0][activity]" value="Dormir" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Início</label>
-                    <input type="time" name="sunday[0][start]" value="00:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Fim</label>
-                    <input type="time" name="sunday[0][end]" value="08:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="mt-8">
-          <button type="submit" id="save-config" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
-            Salvar Configuração
-          </button>
-        </div>
-      </form>
       <div class="mt-4 text-center">
         <a href="{{ route('user.index') }}" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">Voltar</a>
       </div>
