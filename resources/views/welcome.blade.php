@@ -252,45 +252,45 @@
           <form id="add-event-form" class="space-y-4" action="{{ route('user.saveExam') }}" method="POST">
             @csrf
             <div>
-              <label for="event-title" class="block text-sm font-medium text-gray-700">Title</label>
-              <input type="text" id="event-title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Ex: Mathematics">
+                <label for="event-title" class="block text-sm font-medium text-gray-700">Title</label>
+                <input type="text" id="event-title" name="title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Ex: Mathematics" required>
             </div>
             <div>
-              <label for="event-time" class="block text-sm font-medium text-gray-700">Time</label>
-              <select id="event-time" class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-md px-3 py-2 focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                <option value="8:00">8:00</option>
-                <option value="9:00">9:00</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
-                <option value="18:00">18:00</option>
-                <option value="19:00">19:00</option>
-                <option value="20:00">20:00</option>
-                <option value="21:00">21:00</option>
-                <option value="22:00">22:00</option>
-                <option value="23:00">23:00</option>
-                <!-- Add more time options as needed -->
-              </select>
+                <label for="event-time" class="block text-sm font-medium text-gray-700">Time</label>
+                <select id="event-time" name="time" class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-md px-3 py-2 focus:border-rose-500 focus:ring-rose-500 sm:text-sm" required>
+                    <option value="8:00">8:00</option>
+                    <option value="9:00">9:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="21:00">21:00</option>
+                    <option value="22:00">22:00</option>
+                    <option value="23:00">23:00</option>
+                </select>
             </div>
             <div>
-              <label for="event-day" class="block text-sm font-medium text-gray-700">Day</label>
-              <select id="event-day" class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-md px-3 py-2 focus:border-rose-500 focus:ring-rose-500 sm:text-sm">
-                <option value="Mon">Monday</option>
-                <option value="Tue">Tuesday</option>
-                <option value="Wed">Wednesday</option>
-                <option value="Thu">Thursday</option>
-                <option value="Fri">Friday</option>
-                <option value="Sat">Saturday</option>
-                <option value="Sun">Sunday</option>
-              </select>
+                <label for="event-day" class="block text-sm font-medium text-gray-700">Day</label>
+                <select id="event-day" name="day" class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-md px-3 py-2 focus:border-rose-500 focus:ring-rose-500 sm:text-sm" required>
+                    <option value="Mon">Monday</option>
+                    <option value="Tue">Tuesday</option>
+                    <option value="Wed">Wednesday</option>
+                    <option value="Thu">Thursday</option>
+                    <option value="Fri">Friday</option>
+                    <option value="Sat">Saturday</option>
+                    <option value="Sun">Sunday</option>
+                </select>
             </div>
             <button type="submit" class="w-full bg-rose-600 text-white p-2 rounded-md">Add Test</button>
-          </form>
+        </form>
+        
         </div>
           <!-- Exam Summary Section -->
           <div class="bg-white rounded-lg shadow-sm p-4">
