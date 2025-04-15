@@ -1,0 +1,15 @@
+{
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Gera um horário de estudo semanal para informática com foco em matemática, redes e programação."
+          },
+        ]
+      },
+    ],
+    "generationConfig": {
+      "responseMimeType": "text/plain",
+    },
+}
