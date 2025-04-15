@@ -12,8 +12,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16 items-center">
         <div class="flex items-center">
-          <span class="text-rose-600 text-2xl font-bold">SyncHours</span>
-          <a href="{{ route('user.index') }}" class="ml-6 text-gray-600 hover:text-rose-600">PERFIL</a>
+          <span class="text-rose-600 text-2xl font-bold">USER</span>
         </div>
       </div>
     </div>
