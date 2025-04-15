@@ -249,7 +249,8 @@
       <div class="lg:w-80 space-y-6">
         <div class="bg-white rounded-lg shadow-sm p-4">
           <h2 class="text-lg font-semibold text-gray-800 mb-4">Add Test</h2>
-          <form id="add-event-form" class="space-y-4">
+          <form id="add-event-form" class="space-y-4" action="{{ route('user.saveExam') }}" method="POST">
+            @csrf
             <div>
               <label for="event-title" class="block text-sm font-medium text-gray-700">Title</label>
               <input type="text" id="event-title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Ex: Mathematics">
@@ -333,32 +334,5 @@
       </div>
     </div>
   </main>
-
-  <script>
-    $(document).ready(function () {
-      // Handle event form submission
-      $("#add-event-form").submit(function (e) {
-        e.preventDefault();
-
-        // Get values from the form
-        const title = $("#event-title").val();
-        const time = $("#event-time").val();
-        const day = $("#event-day").val();
-
-        // Find the correct time slot and add the event
-        const eventSlot = $(`.event-slot[data-time="${time}"][data-day="${day}"]`);
-        
-        if (eventSlot.length > 0) {
-          eventSlot.html(`<div class="text-xs p-1 text-rose-800">${title}</div>`);
-          eventSlot.addClass('bg-rose-100'); // Style the event
-        } else {
-          alert("Selecione um horário válido para o evento.");
-        }
-
-        // Clear the form
-        $(this).trigger("reset");
-      });
-    });
-  </script>
 </body>
 </html>

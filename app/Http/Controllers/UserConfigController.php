@@ -29,22 +29,28 @@ class UserConfigController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // Verificamos se o cookie existe
-        if (request()->hasCookie('userConfigCookie')) {
-            // Obtemos o cookie
-            $cookie = request()->cookie('userConfigCookie');
-
-            // Decodificamos o JSON para um array
-            $userConfig = json_decode($cookie, true);
-
-            // Passamos os dados para a view
-            return view('user.index', compact('userConfig'));
-        }
-
-        return view('user.index');
+    public function index(Request $request)
+{
+    // Verificamos se o cookie 'userConfigCookie' existe
+    if (request()->hasCookie('userConfigCookie')) {
+        // Obtemos o cookie 'userConfigCookie'
+        $cookieConfig = request()->cookie('userConfigCookie');
+        // Decodificamos o JSON para um array
+        $userConfig = json_decode($cookieConfig, true);
     }
+
+    // Verificamos se o cookie 'userExamsCookie' existe
+    if (request()->hasCookie('userExamsCookie')) {
+        // Obtemos o cookie 'userExamsCookie'
+        $cookieExams = request()->cookie('userExamsCookie');
+        // Decodificamos o JSON para um array
+        $userExams = json_decode($cookieExams, true);
+        dd($userExams);
+    }
+
+    // Passamos os dados para a view
+    return view('user.index', compact('userConfig', 'userExams'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -87,8 +93,9 @@ class UserConfigController extends Controller
 
 
 
-    public function saveExams(Request $request)
+    public function saveExam(Request $request)
     {
+        dd($request->all());
         // Obtemos os dados do formulário
         $userExams = $request->except('_token');
 
@@ -97,7 +104,7 @@ class UserConfigController extends Controller
 
         // Criamos o cookie (duração: 1 semana = 60*24*7 minutos)
         $cookie = cookie('userExamsCookie', $jsonConfig, 60 * 24 * 7);
-
+        dd($cookie);
         // Redirecionamos com o cookie anexado
         return redirect()->route('user.index')
                         ->with('success', 'Exams guardados com sucesso!')
