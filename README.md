@@ -12,10 +12,10 @@ SyncHours é uma aplicação web desenvolvida com Laravel para monitorizar e ger
 
 ### Funcionalidades Principais
 
-- ✅ **Registo de Atividades**: Controle preciso de início e fim de tarefas
+- ✅ **Registo de Atividades**: Controlo de início e fim de tarefas
 - 🔄 **Configurações Personalizáveis**: Adapte a aplicação às suas necessidades
 - 📊 **Análise de Dados**: Visualize estatísticas sobre a utilização do seu tempo
-- 🤖 **Integração com IA**: Utilize o poder do Gemini para análises avançadas e insights
+- 🤖 **Integração com IA**: Utilize o poder do Gemini para criar um plano de estudo
 - 📱 **Design Responsivo**: Interface adaptável a diferentes dispositivos
 
 ## 🚀 Instalação
@@ -25,8 +25,8 @@ SyncHours é uma aplicação web desenvolvida com Laravel para monitorizar e ger
 - [PHP](https://www.php.net/) (v8.0 ou superior)
 - [Laravel](https://laravel.com/docs/12.x)
 - [Composer](https://getcomposer.org/)
-- [Node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/) (para assets)
-- Chave de API do Gemini (para funcionalidades de IA)
+- [Node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/)
+- Chave de API do Gemini
 
 ### Instruções de Instalação
 
@@ -117,7 +117,7 @@ A aplicação utiliza a API do Gemini para fornecer:
 ### Configuração da API do Gemini
 
 Para utilizar as funcionalidades de IA do Gemini, certifique-se de:
-1. Obter uma chave de API válida em [console.cloud.google.com](https://console.cloud.google.com/)
+1. Obter uma chave de API válida em [console.cloud.google.com](https://aistudio.google.com/u/1/prompts/new_chat)
 2. Adicionar a chave ao seu ficheiro `.env`
 3. Configurar os parâmetros de utilização no painel de administração
 
