@@ -254,7 +254,7 @@
       </div>
 
       <!-- Sidebar for events -->
-      <div class="lg:w-80 space-y-6">
+    <div class="lg:w-80 space-y-6">
         <div class="bg-white rounded-lg shadow-sm p-4">
           <h2 class="text-lg font-semibold text-gray-800 mb-4">Add Test</h2>
           <form id="add-event-form" class="space-y-4" action="{{ route('user.saveExam') }}" method="POST">
@@ -300,44 +300,67 @@
         </form>
         
         </div>
-          <!-- Exam Summary Section -->
             <div class="bg-white rounded-lg shadow-sm p-4">
                 <h2 class="text-lg font-semibold text-gray-800 mb-4">Next Exams</h2>
                 <div class="space-y-3">
-                @forelse ($userExams as $exam)
-                    @php
-                    // Define uma cor base só para estilo
-                    $color = 'red';
-                    $diasSemana = [
-                        'Mon' => 'Segunda-feira',
-                        'Tue' => 'Terça-feira',
-                        'Wed' => 'Quarta-feira',
-                        'Thu' => 'Quinta-feira',
-                        'Fri' => 'Sexta-feira',
-                        'Sat' => 'Sábado',
-                        'Sun' => 'Domingo',
-                    ];
-                    @endphp
-            
-                    <div class="p-3 bg-{{ $color }}-50 rounded-md border border-{{ $color }}-100">
-                    <div class="font-medium text-{{ $color }}-800">{{ $exam['title'] }}</div>
-                    <div class="text-sm text-{{ $color }}-600">
-                        {{ $diasSemana[$exam['day']] ?? $exam['day'] }}, às {{ $exam['time'] }}
-                    </div>
-                    <div class="mt-1 flex items-center text-xs text-{{ $color }}-700">
-                        <span>Sem progresso registado</span>
-                        <div class="ml-auto w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div class="bg-{{ $color }}-500 h-full" style="width: 0%"></div>
+                    @forelse ($userExams as $exam)
+                        @php
+                            $color = 'rose';
+                            $diasSemana = [
+                                'Mon' => 'Monday',
+                                'Tue' => 'Tuesday',
+                                'Wed' => 'Wednesday',
+                                'Thu' => 'Thursday',
+                                'Fri' => 'Friday',
+                                'Sat' => 'Saturday',
+                                'Sun' => 'Sunday',
+                            ];
+                    
+                            // Simulação de progresso — substituir isto com dados reais depois
+                            $estudoAtual = rand(0, 20); // horas estudadas
+                            $estudoTotal = 20; // total necessário
+                            $progresso = min(100, round(($estudoAtual / $estudoTotal) * 100));
+                        @endphp
+                
+                        <div class="p-3 bg-{{ $color }}-50 rounded-md border border-{{ $color }}-100">
+                            <div class="font-medium text-{{ $color }}-800">{{ $exam['title'] }}</div>
+                            <div class="text-sm text-{{ $color }}-600">
+                                {{ $diasSemana[$exam['day']] ?? $exam['day'] }}, at {{ $exam['time'] }}
+                            </div>
+                            <div class="mt-1 flex items-center text-xs text-{{ $color }}-700">
+                                <span>Tempo de estudo: {{ $estudoAtual }}h / {{ $estudoTotal }}h</span>
+                                <div class="ml-auto w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="bg-{{ $color }}-500 h-full transition-all duration-300" style="width: {{ $progresso }}%"></div>
+                                </div>
+                            </div>
                         </div>
+                    @empty
+                        <div class="text-gray-500 text-sm">No exams added.</div>
+                    @endforelse
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-4 mt-6">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Legend</h2>
+                <div class="space-y-2 text-sm text-gray-700">
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 h-4 bg-rose-100 rounded-sm inline-block"></span>
+                        <span>Exams</span>
                     </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 h-4 bg-emerald-100 rounded-sm inline-block"></span>
+                        <span>Study</span>
                     </div>
-                @empty
-                    <div class="text-gray-500 text-sm">Sem exames adicionados.</div>
-                @endforelse
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 h-4 bg-blue-300 rounded-sm inline-block"></span>
+                        <span>Busy Schedule</span>
+                    </div>
                 </div>
             </div>
         </div>
-      </div>
+
+        
+        
+        </div>
     </div>
   </main>
 
@@ -352,10 +375,10 @@
     
       const activityColors = {
         'Aulas': 'bg-indigo-200',
-        'Sesta': 'bg-orange-200',
-        'Dormir': 'bg-blue-200',
-        'Estudo': 'bg-green-200',
-        'default': 'bg-purple-200'
+        'Sesta': 'bg-indigo-200',
+        'Dormir': 'bg-indigo-200',
+        'Estudo': 'bg-indigo-200',
+        'default': 'bg-indigo-200'
       };
     
       // Limpar todos os slots primeiro

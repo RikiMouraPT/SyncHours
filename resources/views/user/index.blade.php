@@ -22,7 +22,7 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
     <div class="bg-white rounded-lg shadow-sm p-6">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Busy Schedule</h1>
-        @if(isset($userConfig))
+        @if(!empty($userConfig))
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @foreach($userConfig as $day => $activities)
                     <div class="p-4 border rounded shadow">
@@ -44,7 +44,7 @@
                 @endforeach
             </div>
         @else
-            <p class="text-gray-600">No schedule available for this user.</p>
+            <p class="text-gray-600">No schedule configured for this user.</p>
         @endif
     </div>
 
