@@ -1,66 +1,157 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SyncHours 🕒
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align="center">
+  <img src="/api/placeholder/600/300" alt="SyncHours Logo">
+  <br>
+  <p><i>Sistema de gestão e monitorização de horas de trabalho</i></p>
+</div>
 
-## About Laravel
+## 📋 Visão Geral
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+SyncHours é uma aplicação web desenvolvida com Laravel para monitorizar e gerir o tempo dedicado a alunos universitários para que possam reduzir os níveis de stress e focar-se no que realmente importa. Esta ferramenta permite o registo de horas de estudo, horas de sono e marcação de exames, categorização de atividades, utiliza também a API do Gemini para funcionalidades avançadas de análise e processamento de dados.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Funcionalidades Principais
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- ✅ **Registo de Atividades**: Controle preciso de início e fim de tarefas
+- 🔄 **Configurações Personalizáveis**: Adapte a aplicação às suas necessidades
+- 📊 **Análise de Dados**: Visualize estatísticas sobre a utilização do seu tempo
+- 🤖 **Integração com IA**: Utilize o poder do Gemini para análises avançadas e insights
+- 📱 **Design Responsivo**: Interface adaptável a diferentes dispositivos
 
-## Learning Laravel
+## 🚀 Instalação
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Requisitos Prévios
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- [PHP](https://www.php.net/) (v8.0 ou superior)
+- [Laravel](https://laravel.com/docs/12.x)
+- [Composer](https://getcomposer.org/)
+- [MySQL](https://www.mysql.com/) ou outro sistema de base de dados compatível
+- [Node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/) (para assets)
+- Chave de API do Gemini (para funcionalidades de IA)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Instruções de Instalação
 
-## Laravel Sponsors
+1. **Clone o repositório**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone https://github.com/RikiMouraPT/SyncHours.git
+cd SyncHours
+```
 
-### Premium Partners
+2. **Instale as dependências PHP**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+composer install
+```
 
-## Contributing
+3. **Instale as dependências JavaScript**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+npm install
+```
 
-## Code of Conduct
+4. **Configure o ambiente**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+7. **Compile os assets**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+npm run dev
+```
 
-## License
+8. **Inicie o servidor de desenvolvimento**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan serve
+```
+
+A aplicação estará disponível em `http://localhost:8000`
+
+## 💻 Como Utilizar
+
+### Funcionalidades Principais
+
+2. **Dashboard Principal**: Visualize as suas atividades semanais
+3. **Registo de Horas**: Adicione novas entradas especificando projeto, descrição e tempo
+5. **Análises com IA**: Permita que IA faça a gestão do seu tempo de estudo
+6. **Configurações**: Personalize o sistema conforme as suas necessidades
+
+### Rotas Principais
+
+- `/`: Página inicial/Dashboard
+- `/user`: Página de visualização das configurações do utilizador
+- `/user/create`: Formulário para alteração de configuração
+
+## 🛠️ Estrutura do Projeto
+
+```
+SyncHours/
+├── app/                 # Lógica principal da aplicação
+│   ├── Http/            # Controllers, Middleware, Requests
+│   ├── Models/          # Models da base de dados
+│   └── Providers/       # Service providers
+├── resources/           # Views, assets não compilados
+│   └── views/           # Templates Blade
+├── routes/              # Definições de rotas
+│   ├── web.php          # Rotas web
+│   └── console.php      # Comandos personalizados
+```
+
+### Arquitetura MVC
+
+O SyncHours segue a arquitetura Model-View-Controller (MVC) do Laravel:
+- **Models**: Definem a estrutura de dados e interação com a base de dados
+- **Views**: Templates Blade para renderização da interface
+- **Controllers**: Processam as requisições e coordenam a lógica da aplicação
+
+### Integração com Gemini
+
+A aplicação utiliza a API do Gemini para fornecer:
+- Sugestões de otimização de produtividade
+- Classificação automática de atividades
+
+
+### Configuração da API do Gemini
+
+Para utilizar as funcionalidades de IA do Gemini, certifique-se de:
+1. Obter uma chave de API válida em [console.cloud.google.com](https://console.cloud.google.com/)
+2. Adicionar a chave ao seu ficheiro `.env`
+3. Configurar os parâmetros de utilização no painel de administração
+
+### Compilação de Assets
+
+```bash
+# Desenvolvimento
+npm run dev
+
+# Compilar para produção
+npm run build
+
+# Compilar com hot reload
+npm run hot
+```
+
+## 📚 Stack Tecnológica
+
+- **Laravel**: Framework PHP para backend
+- **Blade**: Sistema de templates
+- **Vite**: Compilação de assets front-end
+- **Gemini API**: Funcionalidades de inteligência artificial e análise de dados
+
+## 📄 Licença
+
+Este projeto está licenciado sob a Licença MIT - veja o ficheiro LICENSE para detalhes.
+
+## 📞 Suporte
+
+Se encontrar algum problema ou tiver questões, por favor [abra uma issue](https://github.com/RikiMouraPT/SyncHours/issues) no repositório GitHub.
+
+---
+
+<div align="center">
+  <p>Desenvolvido com ❤️ por TechVinci</p>
+</div>
