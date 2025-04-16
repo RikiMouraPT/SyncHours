@@ -1,7 +1,7 @@
 # SyncHours 🕒
 
 <div align="center">
-  <img src="/api/placeholder/600/300" alt="SyncHours Logo">
+  <img src="/public/assets/logo.png" alt="SyncHours Logo">
   <br>
   <p><i>Sistema de gestão e monitorização de horas de trabalho</i></p>
 </div>
