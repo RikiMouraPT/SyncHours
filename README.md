@@ -117,7 +117,7 @@ A aplicação utiliza a API do Gemini para fornecer:
 ### Configuração da API do Gemini
 
 Para utilizar as funcionalidades de IA do Gemini, certifique-se de:
-1. Obter uma chave de API válida em [console.cloud.google.com](https://aistudio.google.com/u/1/prompts/new_chat)
+1. Obter uma chave de API válida em [https://aistudio.google.com](https://aistudio.google.com/u/1/prompts/new_chat)
 2. Adicionar a chave ao seu ficheiro `.env`
 3. Configurar os parâmetros de utilização no painel de administração
 
