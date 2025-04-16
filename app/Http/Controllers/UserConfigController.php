@@ -28,7 +28,6 @@ class UserConfigController extends Controller
             'userConfig' => $userConfig
         ]);
 
-
         // Executar o comando Node.js, passando o inputText gerado
         $command = 'node ' . base_path('/resources/scripts/gemini.js') . ' ' . escapeshellarg($inputText);
 
