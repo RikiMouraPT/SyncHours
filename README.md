@@ -25,7 +25,6 @@ SyncHours é uma aplicação web desenvolvida com Laravel para monitorizar e ger
 - [PHP](https://www.php.net/) (v8.0 ou superior)
 - [Laravel](https://laravel.com/docs/12.x)
 - [Composer](https://getcomposer.org/)
-- [MySQL](https://www.mysql.com/) ou outro sistema de base de dados compatível
 - [Node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/) (para assets)
 - Chave de API do Gemini (para funcionalidades de IA)
 
